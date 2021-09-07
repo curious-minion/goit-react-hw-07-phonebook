@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import contactsActions from '../../redux/contacts/contacts-actions';
-import { getFilter } from '../../redux/contacts/contacts-selectors';
+import { changeFilter } from 'redux/contacts/contacts-actions';
+import { getFilter } from 'redux/contacts/contacts-selectors';
 
 import { filter_input, contact_search } from './Filter.module.css';
 
@@ -16,9 +16,7 @@ const Filter = () => {
         className={filter_input}
         type="text"
         value={filter}
-        onChange={e =>
-          dispatch(contactsActions.changeFilter(e.currentTarget.value))
-        }
+        onChange={e => dispatch(changeFilter(e.currentTarget.value))}
       />
     </label>
   );

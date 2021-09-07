@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import contactsActions from '../../redux/contacts/contacts-actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewContact } from 'redux/contacts/contacts-operations';
+import { getVisibleContacts } from 'redux/contacts/contacts-selectors';
 
 import shortid from 'shortid';
 import {
@@ -15,6 +16,7 @@ export default function ContactEditor() {
   const [number, setNumber] = useState('');
 
   const dispatch = useDispatch();
+  const filteredContacts = useSelector(getVisibleContacts);
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -34,11 +36,11 @@ export default function ContactEditor() {
   const handleSubmit = e => {
     e.preventDefault();
 
-    dispatch(contactsActions.addContact(name, number));
-    reset();
+    dispatch(addNewContact(filteredContacts, name, number));
+    resetForm();
   };
 
-  const reset = () => {
+  const resetForm = () => {
     setName('');
     setNumber('');
   };
